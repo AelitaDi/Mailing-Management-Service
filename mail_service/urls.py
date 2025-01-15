@@ -2,20 +2,28 @@ from django.urls import path
 from django.views.decorators.cache import cache_page
 
 from mail_service.apps import MailServiceConfig
-from mail_service.views import ClientListView
-# ProductDetailView, ProductCreateView, ContactsListView, ProductUpdateView, \
-#     ProductDeleteView, CategoryDetailView
+from mail_service.views import ClientListView, ClientDetailView, home_view, ClientUpdateView, ClientCreateView, \
+    ClientDeleteView, MessageListView, MessageDetailView, MessageUpdateView, MessageCreateView, MessageDeleteView, \
+    MailingListView, MailingDetailView, MailingUpdateView, MailingCreateView, MailingDeleteView
 
 app_name = MailServiceConfig.name
 
 
 urlpatterns = [
-    path('clients/list/', ClientListView.as_view(), name='client_list'),
-    # path('contacts/list/', ContactsListView.as_view(), name='contacts_list'),
-    # path('', ProductListView.as_view(), name='product_list'),
-    # path('product/<int:pk>/', cache_page(60)(ProductDetailView.as_view()), name='product_detail'),
-    # path('product/create/', ProductCreateView.as_view(), name='product_create'),
-    # path('product/update/<int:pk>', ProductUpdateView.as_view(), name='product_update'),
-    # path('product/delete/<int:pk>', ProductDeleteView.as_view(), name='product_delete'),
-    # path('category/<int:pk>/', CategoryDetailView.as_view(), name='category_detail'),
+    path('', home_view, name='home'),
+    path('client/list/', ClientListView.as_view(), name='client_list'),
+    path('client/<int:pk>/', ClientDetailView.as_view(), name='client_detail'),
+    path('client/update/<int:pk>', ClientUpdateView.as_view(), name='client_update'),
+    path('client/create/', ClientCreateView.as_view(), name='client_create'),
+    path('client/delete/<int:pk>', ClientDeleteView.as_view(), name='client_delete'),
+    path('message/list/', MessageListView.as_view(), name='message_list'),
+    path('message/<int:pk>/', MessageDetailView.as_view(), name='message_detail'),
+    path('message/update/<int:pk>', MessageUpdateView.as_view(), name='message_update'),
+    path('message/create/', MessageCreateView.as_view(), name='message_create'),
+    path('message/delete/<int:pk>', MessageDeleteView.as_view(), name='message_delete'),
+    path('mailing/list/', MailingListView.as_view(), name='mailing_list'),
+    path('mailing/<int:pk>/', MailingDetailView.as_view(), name='mailing_detail'),
+    path('mailing/update/<int:pk>', MailingUpdateView.as_view(), name='mailing_update'),
+    path('mailing/create/', MailingCreateView.as_view(), name='mailing_create'),
+    path('mailing/delete/<int:pk>', MailingDeleteView.as_view(), name='mailing_delete'),
 ]

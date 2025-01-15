@@ -1,0 +1,29 @@
+{% extends 'mail_service/base.html' %}
+{% load my_tags %}
+{% block title %} Информация о клиенте {% endblock %}
+{% block title1 %}
+<div class="pricing-header px-2 pb-md-4 text-center">
+    <h1 class="display-5">Информация о клиенте</h1>
+</div>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-6 text-center">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h2 class="card-title pricing-card-title">{{ object.email }}</h2>
+            </div>
+            <div class="card-body">
+                <h4>{{ object.name }}</h4>
+                <h6>{{ object.comment }}</h6>
+                {% if user == object.owner %}
+                <a type="button" class="btn btn-lg btn-block btn-outline-primary"
+                   href="{% url 'mail_service:client_update' object.pk %}">Редактировать</a>
+                {% endif %}
+                <a type="button" class="btn btn-lg btn-block btn-outline-primary"
+                   href="{% url 'mail_service:home'%}">На Главную</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

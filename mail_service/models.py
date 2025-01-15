@@ -23,7 +23,7 @@ class Client(models.Model):
 
     class Meta:
         verbose_name = "получатель рассылки"
-        verbose_name_plural = "получателя рассылки"
+        verbose_name_plural = "получатели рассылки"
         ordering = ["email"]
 
 
@@ -57,8 +57,8 @@ class Mailing(models.Model):
         (CREATED, 'Создана'),
         (STARTED, 'Запущена'),
     ]
-    start_sending_at = models.DateTimeField(verbose_name='Дата и время начала рассылки')
-    end_sending_at = models.DateTimeField(verbose_name='Дата и время окончания рассылки')
+    start_sending_at = models.DateTimeField(verbose_name='Дата и время начала рассылки', null=True, blank=True)
+    end_sending_at = models.DateTimeField(verbose_name='Дата и время окончания рассылки', null=True, blank=True)
     status = models.CharField(
         max_length=9,
         choices=STATUS_CHOICES,
