@@ -20,7 +20,12 @@
                 </ul>
                 <p>{{ mailing.status }}</p>
                 <a type="button" class="btn btn-lg btn-block btn-outline-primary"
-                   href="{% url 'mail_service:mailing_detail' mailing.pk %}">Подробнее...</a></li>
+                   href="{% url 'mail_service:mailing_detail' mailing.pk %}">Подробнее...</a>
+                {% if perms.mail_service.can_finish_mailing %}
+                <a type="button" class="btn btn-lg btn-block btn-outline-primary"
+                   href="{% url 'mail_service:finish_mailing' mailing.pk %}">Отключить рассылку</a></li>
+            {% endif %}
+            </li>
             {% endfor %}
             <li class="list-group-item"><a type="button"
                                            class="btn btn-lg btn-block btn-outline-primary"

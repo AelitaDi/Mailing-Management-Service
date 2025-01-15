@@ -6,6 +6,9 @@ from mail_service.models import Client, Message, Mailing
 
 
 class StyleFormMixin:
+    """
+    Миксин для настройки стилей форм.
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for fild_name, fild in self.fields.items():
@@ -16,6 +19,9 @@ class StyleFormMixin:
 
 
 class ClientForm(StyleFormMixin, forms.ModelForm):
+    """
+    Форма для создания клиента.
+    """
     class Meta:
         model = Client
         fields = ('email', 'name', 'comment')
@@ -37,6 +43,9 @@ class ClientForm(StyleFormMixin, forms.ModelForm):
 
 
 class MessageForm(StyleFormMixin, forms.ModelForm):
+    """
+    Форма для создания сообщения.
+    """
     class Meta:
         model = Message
         fields = ('subject', 'message')
@@ -54,6 +63,9 @@ class MessageForm(StyleFormMixin, forms.ModelForm):
 
 
 class MailingForm(StyleFormMixin, forms.ModelForm):
+    """
+    Форма для создания рассылки.
+    """
     class Meta:
         model = Mailing
         fields = ('message', 'clients', 'status', 'start_sending_at', 'end_sending_at')

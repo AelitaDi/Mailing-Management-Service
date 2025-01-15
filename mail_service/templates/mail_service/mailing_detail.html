@@ -23,9 +23,13 @@
                 <p>{{ object.status }}</p>
                 <p>{% if start_sending_at %} Дата и время начала рассылки: {{ mailing.start_sending_at|date:"d.m.y H:i" }} {% endif %}</p>
                 <p>{% if end_sending_at %} Дата и время начала рассылки: {{ mailing.end_sending_at|date:"d.m.y H:i" }} {% endif %}</p>
-                {% if user == object.owner %}
+                {% if user == object.owner and object.status != 'completed' %}
                 <a type="button" class="btn btn-lg btn-block btn-outline-primary"
                    href="{% url 'mail_service:mailing_update' object.pk %}">Редактировать</a>
+                {% if object.status != 'completed' %}
+                <a type="button" class="btn btn-lg btn-block btn-outline-primary"
+                   href="{% url 'mail_service:send_mailing' mailing.pk %}">Запустить рассылку</a>
+                {% endif %}
                 {% endif %}
                 <a type="button" class="btn btn-lg btn-block btn-outline-primary"
                    href="{% url 'mail_service:home'%}">На Главную</a>

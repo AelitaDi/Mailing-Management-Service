@@ -32,7 +32,7 @@ class MailingAdmin(admin.ModelAdmin):
 @admin.register(Attempt)
 class AttemptAdmin(admin.ModelAdmin):
     """
-    Класс для отображения попыток рассылки в админке.
+    Класс для отображения попыток рассылок в админке.
     """
     list_filter = ('status',)
     search_fields = ('mailing',)

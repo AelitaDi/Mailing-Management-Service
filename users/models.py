@@ -3,6 +3,9 @@ from django.db import models
 
 
 class User(AbstractUser):
+    """
+    Модель пользователя.
+    """
     username = None
     email = models.EmailField(unique=True, verbose_name="Email")
     phone_number = models.CharField(
@@ -25,6 +28,8 @@ class User(AbstractUser):
 
     token = models.CharField(max_length=100, verbose_name='Token', blank=True, null=True, )
 
+    is_blocked = models.BooleanField(default=False, verbose_name="заблокирован")
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
@@ -32,6 +37,9 @@ class User(AbstractUser):
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
         ordering = ['email']
+        permissions = [
+            ("can_block_user", "Can block user"),
+        ]
 
     def __str__(self):
         return self.email

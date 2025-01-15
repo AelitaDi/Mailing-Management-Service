@@ -1,0 +1,70 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$QTcduKPwyAdjCV1RTiMDl0$gWNJPSJ4rzOeL/Ox4C/s/6fCBGhi1DWeu6VUjG2K6bU=",
+        "last_login": "2025-01-15T21:12:05.712Z",
+        "is_superuser": true,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-01-06T10:58:39.552Z",
+        "email": "admin@example.com",
+        "phone_number": null,
+        "country": null,
+        "avatar": "",
+        "token": null,
+        "is_blocked": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$O3gFfYYT3YNGwGRfLlHoTv$4Ut0ONx7DvpdbY/a9BinT9TXVhkJ+YsH/UCbEtIBzzA=",
+        "last_login": "2025-01-15T21:22:19.531Z",
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-07T12:06:40Z",
+        "email": "aelitadi@yandex.ru",
+        "phone_number": null,
+        "country": null,
+        "avatar": "",
+        "token": "dd4a10c703339955d86f214439810623",
+        "is_blocked": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$NTOlLUGbGbfnylXMOr97XG$OeN4UAFfLNR1EblOaCWyoaS91hR+RQwpjm0YF1YaPmk=",
+        "last_login": "2025-01-15T21:28:12.124Z",
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-01-15T14:54:35Z",
+        "email": "manager@example.com",
+        "phone_number": null,
+        "country": null,
+        "avatar": "",
+        "token": "6a2e72a6946c70e444f797dc429334da",
+        "is_blocked": false,
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+}
+]

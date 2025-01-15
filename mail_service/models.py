@@ -4,6 +4,9 @@ from users.models import User
 
 
 class Client(models.Model):
+    """
+    Модель для получателей рассылки.
+    """
     email = models.EmailField(unique=True, verbose_name="Email")
     name = models.CharField(
         max_length=250,
@@ -28,6 +31,9 @@ class Client(models.Model):
 
 
 class Message(models.Model):
+    """
+    Модель для писем.
+    """
     subject = models.CharField(
         max_length=250,
         verbose_name="Тема письма",
@@ -49,6 +55,9 @@ class Message(models.Model):
 
 
 class Mailing(models.Model):
+    """
+    Модель для рассылок.
+    """
     COMPLETED = 'completed'
     CREATED = 'created'
     STARTED = 'started'
@@ -74,9 +83,15 @@ class Mailing(models.Model):
         verbose_name = "рассылка"
         verbose_name_plural = "рассылки"
         ordering = ["message", "owner"]
+        permissions = [
+            ("can_finish_mailing", "Can finish mailing"),
+        ]
 
 
 class Attempt(models.Model):
+    """
+    Модель для попыток рассылки.
+    """
     SUCCESS = 'success'
     FAILURE = 'failure'
     STATUS_CHOICES = [
