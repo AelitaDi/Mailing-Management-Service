@@ -57,6 +57,7 @@ class StatisticsView(LoginRequiredMixin, TemplateView):
         context['mail_count'] = mail_count
         context['success'] = success
         context['failure'] = failure
+        context['attempts'] = attempts
 
         return context
 
