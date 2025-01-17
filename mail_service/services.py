@@ -1,11 +1,12 @@
 import smtplib
 
+from django.core.cache import cache
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import timezone
 
-from config.settings import EMAIL_HOST_USER
+from config.settings import EMAIL_HOST_USER, CACHE_ENABLED
 from mail_service.models import Attempt, Mailing
 
 
@@ -15,7 +16,7 @@ class MailingService:
     """
 
     @staticmethod
-    def send_mailing(pk):
+    def send_mailing(request, pk):
         """
         Функция для отправки рассылки через интерфейс пользователя.
         """
@@ -56,3 +57,18 @@ class MailingService:
         mailing.end_sending_at = end_at
         mailing.status = 'completed'
         mailing.save()
+
+    @staticmethod
+    def caching(queryset, model, user=None):
+        """
+        Функция для кэширования queryset в ListView.
+        """
+        if not CACHE_ENABLED:
+            return queryset.filter(owner=user)
+        key = str(model)+"_list"
+        objects = cache.get(key)
+        if objects is not None:
+            return objects
+        objects = queryset.filter(owner=user)
+        cache.set(key, objects, 60 * 1)
+        return objects

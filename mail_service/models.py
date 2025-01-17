@@ -28,6 +28,9 @@ class Client(models.Model):
         verbose_name = "получатель рассылки"
         verbose_name_plural = "получатели рассылки"
         ordering = ["email"]
+        permissions = [
+            ("can_view_client_list", "Can view client list"),
+        ]
 
 
 class Message(models.Model):
@@ -52,6 +55,9 @@ class Message(models.Model):
         verbose_name = "письмо"
         verbose_name_plural = "письма"
         ordering = ["subject"]
+        permissions = [
+            ("can_view_message_list", "Can view message list"),
+        ]
 
 
 class Mailing(models.Model):
@@ -79,6 +85,9 @@ class Mailing(models.Model):
                                      help_text='Выберите получателей рассылки')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Владелец", related_name="mailing")
 
+    def __str__(self):
+        return "mailing " + str(self.message)
+
     class Meta:
         verbose_name = "рассылка"
         verbose_name_plural = "рассылки"
@@ -105,6 +114,9 @@ class Attempt(models.Model):
         verbose_name='Статус попытки')
     mail_response = models.TextField(verbose_name="Ответ почтового сервера")
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, verbose_name='Рассылка', related_name='attempt')
+
+    def __str__(self):
+        return "attempt at " + str(self.created_at) + " " + str(self.mailing)
 
     class Meta:
         verbose_name = "попытка"

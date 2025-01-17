@@ -1,6 +1,5 @@
 from django import forms
-from django.core.exceptions import ValidationError
-from django.forms import BooleanField
+from django.forms import BooleanField, DateTimeInput
 
 from mail_service.models import Client, Message, Mailing
 
@@ -9,6 +8,7 @@ class StyleFormMixin:
     """
     Миксин для настройки стилей форм.
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for fild_name, fild in self.fields.items():
@@ -22,6 +22,7 @@ class ClientForm(StyleFormMixin, forms.ModelForm):
     """
     Форма для создания клиента.
     """
+
     class Meta:
         model = Client
         fields = ('email', 'name', 'comment')
@@ -46,6 +47,7 @@ class MessageForm(StyleFormMixin, forms.ModelForm):
     """
     Форма для создания сообщения.
     """
+
     class Meta:
         model = Message
         fields = ('subject', 'message')
@@ -66,6 +68,7 @@ class MailingForm(StyleFormMixin, forms.ModelForm):
     """
     Форма для создания рассылки.
     """
+
     class Meta:
         model = Mailing
         fields = ('message', 'clients', 'status', 'start_sending_at', 'end_sending_at')
@@ -73,6 +76,10 @@ class MailingForm(StyleFormMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super(MailingForm, self).__init__(*args, **kwargs)
+        self.fields["end_sending_at"].widget = forms.DateTimeInput(
+            attrs={"type": "datetime-local", 'class': 'form-control'})
+        self.fields["start_sending_at"].widget = forms.DateTimeInput(
+            attrs={"type": "datetime-local", 'class': 'form-control'})
 
         if user:
             self.fields['message'].queryset = Message.objects.filter(owner=user)

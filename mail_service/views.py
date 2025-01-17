@@ -1,14 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
-from config.settings import CACHE_ENABLED
 from mail_service.forms import ClientForm, MessageForm, MailingForm
 from mail_service.models import Client, Mailing, Message, Attempt
+from mail_service.services import MailingService
 
 
 def home_view(request):
@@ -74,15 +73,10 @@ class ClientListView(LoginRequiredMixin, ListView):
         """
         Переопределение queryset.
         """
-        if not CACHE_ENABLED:
-            return super().get_queryset().filter(owner=self.request.user)
-        key = "client_list"
-        clients = cache.get(key)
-        if clients is not None:
-            return clients
-        clients = super().get_queryset().filter(owner=self.request.user)
-        cache.set(key, clients, 60 * 1)
-        return clients
+        if not self.request.user.has_perm('can_view_client_list'):
+            return MailingService.caching(super().get_queryset(), self.model, self.request.user)
+        else:
+            return MailingService.caching(super().get_queryset(), self.model)
 
 
 class ClientDetailView(LoginRequiredMixin, DetailView):
@@ -154,15 +148,10 @@ class MessageListView(LoginRequiredMixin, ListView):
     # paginate_by = 5
 
     def get_queryset(self):
-        if not CACHE_ENABLED:
-            return super().get_queryset().filter(owner=self.request.user)
-        key = "message_list"
-        messages = cache.get(key)
-        if messages is not None:
-            return messages
-        messages = super().get_queryset().filter(owner=self.request.user)
-        cache.set(key, messages, 60 * 1)
-        return messages
+        if not self.request.user.has_perm('can_view_message_list'):
+            return MailingService.caching(super().get_queryset(), self.model, self.request.user)
+        else:
+            return MailingService.caching(super().get_queryset(), self.model)
 
 
 class MessageDeleteView(LoginRequiredMixin, DeleteView):
@@ -235,26 +224,9 @@ class MailingListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if not self.request.user.has_perm('mail_service.can_finish_mailing'):
-            if not CACHE_ENABLED:
-                return super().get_queryset().filter(owner=self.request.user)
-            key = "mailing_list"
-            mailings = cache.get(key)
-            if mailings is not None:
-                return mailings
-            mailings = super().get_queryset().filter(owner=self.request.user)
-            cache.set(key, mailings, 60 * 1)
-            return mailings
+            return MailingService.caching(super().get_queryset(), self.model, self.request.user)
         else:
-            if not CACHE_ENABLED:
-                return super().get_queryset()
-            key = "mailing_list"
-            mailings = cache.get(key)
-            if mailings is not None:
-                return mailings
-            mailings = super().get_queryset()
-            cache.set(key, mailings, 60 * 1)
-            return mailings
-
+            return MailingService.caching(super().get_queryset(), self.model)
 
 
 class MailingDeleteView(LoginRequiredMixin, DeleteView):

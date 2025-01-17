@@ -1,5 +1,4 @@
 from django.core.management import BaseCommand
-from django.utils import timezone
 
 from mail_service.models import Mailing
 from mail_service.services import MailingService
