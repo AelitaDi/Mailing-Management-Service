@@ -1,0 +1,13 @@
+{% extends 'mail_service/base.html' %}
+{% block title %} Главная {% endblock %}
+{% block title1 %}
+<div class="pricing-header px-2 pb-md-4 text-center">
+    <h2>Приветствуем Вас на главной странице</h2>
+    <h3>Здесь мы собрали статистику нашего почтового сервиса</h3>
+</div>
+{% endblock %}
+{% block content %}
+<h3>Количество уникальных получателей: {{ clients }}</h3>
+<h3>Общее количество рассылок: {{ mailing_count }}</h3>
+<h3>Количество запущенных рассылок: {{ started_mailing_count }}</h3>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'mail_service/base.html' %}
+{% block title %} Создание сообщения {% endblock %}
+{% block title1 %}
+<div class="pricing-header px-2 pb-md-4 text-center">
+    <h1 class="display-5">{% if object %}
+        Редактирование сообщения
+        {% else %}
+        Новое сообщение
+        {% endif %}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="col-6">
+    <form method="POST" class="post-form row" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Тема</label>
+            {{ form.subject }}
+            {% if form.subject.errors %}
+            <small class="text-danger">{{ form.subject.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label>Текст</label>
+            {{ form.message }}
+            {% if form.message.errors %}
+            <small class="text-danger">{{ form.message.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <button type="submit" class="mb-3 save btn btn-outline-primary">
+            {% if object %}
+            Сохранить изменения
+            {% else %}
+            Создать сообщение
+            {% endif %}
+        </button>
+        {% if object %}
+        <a type="button" class="btn btn-outline-danger" href="{% url 'mail_service:message_delete' object.pk %}">Удалить сообщение</a>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

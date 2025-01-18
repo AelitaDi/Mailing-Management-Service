@@ -1,0 +1,42 @@
+[
+{
+    "model": "mail_service.client",
+    "pk": 1,
+    "fields": {
+        "email": "test_1@example.com",
+        "name": "Иванов Иван Ильич",
+        "comment": "",
+        "owner": 2
+    }
+},
+{
+    "model": "mail_service.client",
+    "pk": 2,
+    "fields": {
+        "email": "test_2@example.com",
+        "name": "Петров Петр Петрович",
+        "comment": "",
+        "owner": 2
+    }
+},
+{
+    "model": "mail_service.client",
+    "pk": 3,
+    "fields": {
+        "email": "test_3@example.com",
+        "name": "Андреев Андрей Андреевич",
+        "comment": "",
+        "owner": 1
+    }
+},
+{
+    "model": "mail_service.client",
+    "pk": 6,
+    "fields": {
+        "email": "aelitadi@yandex.ru",
+        "name": "Аэлита",
+        "comment": "",
+        "owner": 2
+    }
+}
+]

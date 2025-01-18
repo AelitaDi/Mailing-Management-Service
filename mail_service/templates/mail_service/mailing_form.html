@@ -1,0 +1,64 @@
+{% extends 'mail_service/base.html' %}
+{% block title %} Создание рассылки {% endblock %}
+{% block title1 %}
+<div class="pricing-header px-2 pb-md-4 text-center">
+    <h1 class="display-5">{% if object %}
+        Редактирование рассылки
+        {% else %}
+        Новая рассылка
+        {% endif %}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="col-6">
+    <form method="POST" class="post-form row" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Сообщение</label>
+            {{ form.message }}
+            {% if form.message.errors %}
+            <small class="text-danger">{{ form.message.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label>Получатели</label>
+            {{ form.clients }}
+            {% if form.clients.errors %}
+            <small class="text-danger">{{ form.clients.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label>Статус</label>
+            {{ form.status }}
+            {% if form.status.errors %}
+            <small class="text-danger">{{ form.status.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label>Дата и время начала рассылки</label>
+            {{ form.start_sending_at }}
+            {% if form.start_sending_at.errors %}
+            <small class="text-danger">{{ form.start_sending_at.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label>Дата и время окончания рассылки</label>
+            {{ form.end_sending_at }}
+            {% if form.end_sending_at.errors %}
+            <small class="text-danger">{{ form.end_sending_at.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <button type="submit" class="mb-3 save btn btn-outline-primary">
+            {% if object %}
+            Сохранить изменения
+            {% else %}
+            Создать рассылку
+            {% endif %}
+        </button>
+        {% if object %}
+        <a type="button" class="btn btn-outline-danger" href="{% url 'mail_service:mailing_delete' object.pk %}">Удалить рассылку</a>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
