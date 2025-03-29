@@ -1,0 +1,28 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} MailingService {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Сервис почтовой рассылки</title>
+</head>
+<body>
+{% include 'mail_service/includes/nav_menu.html' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="row">
+            <div class="col-12 mt-5 ms-5">
+                {% block title1%}<h1 class="text-center pb-3">Добро пожаловать в наш сервис почтовой рассылки!</h1>{% endblock %}
+                {% block content %}
+                {% endblock %}
+                {% include 'mail_service/includes/footer.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

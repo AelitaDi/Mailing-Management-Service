@@ -1,0 +1,25 @@
+{% extends 'mail_service/base.html' %}
+{% block title %} Статистика по рассылкам {% endblock %}
+{% block title1 %}
+<div class="pricing-header px-2 pb-md-4 text-center">
+    <h3>Статистика по рассылкам</h3>
+</div>
+{% endblock %}
+{% block content %}
+<h3>Количество успешных рассылок: {{ success }}</h3>
+<h3>Количество неуспешных рассылок: {{ failure }}</h3>
+<h3>Количество отправленных сообщений: {{ mail_count }}</h3>
+<div class="row">
+    <div class="col-6">
+        <ul class="list-group">
+            {% for attempt in attempts %}
+            <li class="list-group-item">
+                <h4 class="my-0 font-weight-normal">Сообщение: {{ attempt.mailing.message.subject }}</h4>
+                <p>Попытка отправки в: {{attempt.created_at}}</p>
+                <p>Статус: {{ attempt.status }}</p>
+                <p>Ответ почтового сервиса: {{attempt.mail_response}}</p>
+                {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

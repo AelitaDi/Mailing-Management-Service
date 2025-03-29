@@ -1,0 +1,50 @@
+{% extends 'mail_service/base.html' %}
+{% block title %} Добавление нового клиента {% endblock %}
+{% block title1 %}
+<div class="pricing-header px-2 pb-md-4 text-center">
+    <h1 class="display-5">{% if object %}
+        Редактирование клиента
+        {% else %}
+        Добавление клиента
+        {% endif %}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="col-6">
+    <form method="POST" class="post-form row" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+            <small class="text-danger">{{ form.email.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label>Имя</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+            <small class="text-danger">{{ form.name.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label>Комментарий</label>
+            {{ form.comment }}
+            {% if form.comment.errors %}
+            <small class="text-danger">{{ form.comment.errors.0 }}</small>
+            {% endif %}
+        </div>
+        <button type="submit" class="mb-3 save btn btn-outline-primary">
+            {% if object %}
+            Сохранить изменения
+            {% else %}
+            Добавить клиента
+            {% endif %}
+        </button>
+        {% if object %}
+        <a type="button" class="btn btn-outline-danger" href="{% url 'mail_service:client_delete' object.pk %}">Удалить клиента</a>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

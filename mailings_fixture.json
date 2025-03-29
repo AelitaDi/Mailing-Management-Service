@@ -1,0 +1,59 @@
+[
+{
+    "model": "mail_service.mailing",
+    "pk": 1,
+    "fields": {
+        "start_sending_at": null,
+        "end_sending_at": null,
+        "status": "created",
+        "message": 4,
+        "owner": 2,
+        "clients": [
+            1
+        ]
+    }
+},
+{
+    "model": "mail_service.mailing",
+    "pk": 2,
+    "fields": {
+        "start_sending_at": "2025-01-15T13:51:57.997Z",
+        "end_sending_at": "2025-01-15T13:52:00.989Z",
+        "status": "completed",
+        "message": 4,
+        "owner": 2,
+        "clients": [
+            2
+        ]
+    }
+},
+{
+    "model": "mail_service.mailing",
+    "pk": 3,
+    "fields": {
+        "start_sending_at": null,
+        "end_sending_at": null,
+        "status": "created",
+        "message": 2,
+        "owner": 2,
+        "clients": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "mail_service.mailing",
+    "pk": 4,
+    "fields": {
+        "start_sending_at": "2025-01-15T13:17:20.288Z",
+        "end_sending_at": "2025-01-15T13:17:21.454Z",
+        "status": "completed",
+        "message": 3,
+        "owner": 2,
+        "clients": [
+            6
+        ]
+    }
+}
+]
